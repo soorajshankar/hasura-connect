@@ -28,9 +28,28 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`hasura-connect connect`](#hasura-connect-connect)
 * [`hasura-connect hello`](#hasura-connect-hello)
 * [`hasura-connect help [COMMAND]`](#hasura-connect-help-command)
 * [`hasura-connect init`](#hasura-connect-init)
+
+## `hasura-connect connect`
+
+Describe the command here
+
+```
+USAGE
+  $ hasura-connect connect
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/connect.js)_
 
 ## `hasura-connect hello`
 
