@@ -7,7 +7,7 @@ hasura-connect
 [![License](https://img.shields.io/npm/l/hasura-connect.svg)](https://github.com/soorajshankar/hasura-connect/blob/master/package.json)
 
 Hasura connector with MQTT
-hasura-connect cli helps us to connect MQTT broker with hasura graphql engine securely just with 2 commands.
+hasura-connect cli helps you to connect MQTT broker with hasura graphql engine securely just by running 2 commands.
 
 Currently this project supports [eclipse-sparkplug ](https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf) payload specification only.
 
