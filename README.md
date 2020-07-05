@@ -33,11 +33,36 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`hasura-connect connect`](#hasura-connect-connect)
-* [`hasura-connect help [COMMAND]`](#hasura-connect-help-command)
+<!-- * [`hasura-connect help [COMMAND]`](#hasura-connect-help-command) -->
 * [`hasura-connect init`](#hasura-connect-init)
+* [`hasura-connect connect`](#hasura-connect-connect)
+
+## `hasura-connect init`
+Create a folder where you want to configure hasura connect, and run the following.
+
+Describe the command here
+
+```
+USAGE
+  $ hasura-connect init
+
+```
+
+DESCRIPTION
+This will create a configuration file `config.json` in the current directory with the default configuration.
+```json
+{
+  "HASURA_HOST":"http://localhost:8080",
+  "MQTT_HOST":"http://127.0.0.1:1883"
+}
+```
+This can be further edited by the user.
+
+_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/init.js)_
 
 ## `hasura-connect connect`
+
+This will connect start subscribing to the MQTT broker (currently accepts sparkplug payloads only).
 
 Describe the command here
 
@@ -55,8 +80,55 @@ DESCRIPTION
 
 _See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/connect.js)_
 
+## Configuring Hasura GraphQL Engine.
 
-## `hasura-connect help [COMMAND]`
+### Setting up the DB
+
+This project currently support only one Mutation (insert_device_data). 
+To setup the table 
+* Go to Hasura Console > Data > SQL 
+* Run & Track the following SQL to create a table and setup the mutation
+
+```sql
+CREATE TABLE "public"."device_data"("id" serial NOT NULL, "data" jsonb NOT NULL, "timestamp" timestamptz NOT NULL, "device_id" text NOT NULL, PRIMARY KEY ("id") );
+```
+
+### Authorization
+Considering we use mutations, set of headers we pass is as follows
+```
+      "X-Hasura-Role": "device",
+      "X-Hasura-User-Id": <device_id>,
+```
+`device_id`: Used here is directly parsed from the sparkplug topic.
+
+So any custom permissions can be set on the hasura cloud with a role `device`. We recommend to use any of the following approaches.
+
+#### Allow from all device
+
+Following permission will allow `hasura-connect` to make mutation from any device_id.
+
+![Hasura GraphQL Permissions](assets/permission1.png)
+
+#### Allow only from Registered devices
+
+For doing this, we need to create one more table to store the information of registered devices. This will ensure that Hasura would allow only the mutation from the registered devices.
+* Run & Track the following SQL 
+```sql
+CREATE TABLE "public"."devices"("id" serial NOT NULL, "device_id" text NOT NULL, "active" boolean NOT NULL DEFAULT true, PRIMARY KEY ("id") );
+```
+
+* Add device information to the newly created table.
+* Setup Permissions for `device_data` insert.
+
+```json
+{"_exists":{"_table":{"schema":"public","name":"devices"},"_where":{"_and":[{"device_id":{"_eq":"X-Hasura-User-Id"}},{"active":{"_eq":true}}]}}}
+```
+
+![Hasura GraphQL Permissions](assets/permission2.png)
+
+Above permission will make sure that the mutation is only allowed if the device is registered in the devices table.
+
+<!-- ## `hasura-connect help [COMMAND]`
 
 display help for hasura-connect
 
@@ -71,23 +143,6 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_ -->
 
-## `hasura-connect init`
-
-Describe the command here
-
-```
-USAGE
-  $ hasura-connect init
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
-```
-
-_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/init.js)_
 <!-- commandsstop -->
