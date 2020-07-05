@@ -150,3 +150,12 @@ OPTIONS
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_ -->
 
 <!-- commandsstop -->
+
+# Roadmap
+
+[x] More configurations
+[x] Support other streams (Apache Kafka, Apache NiFi, Other MQs, SNS, GCM etc.)
+[x] Batch mutaions for better performance
+[x] support custom MQTT payload spec
+[x] make a Demo app (a digital twin/ realtime chart :?)
+[x] Performance test & optimisation
