@@ -80,9 +80,9 @@ DESCRIPTION
 
 _See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/connect.js)_
 
-## Configuring Hasura GraphQL Engine.
+# Configuring Hasura GraphQL Engine.
 
-### Setting up the DB
+## Setting up the DB
 
 This project currently support only one Mutation (insert_device_data). 
 To setup the table 
@@ -93,7 +93,7 @@ To setup the table
 CREATE TABLE "public"."device_data"("id" serial NOT NULL, "data" jsonb NOT NULL, "timestamp" timestamptz NOT NULL, "device_id" text NOT NULL, PRIMARY KEY ("id") );
 ```
 
-### Authorization
+## Authorization
 Considering we use mutations, set of headers we pass is as follows
 ```
       "X-Hasura-Role": "device",
@@ -102,16 +102,20 @@ Considering we use mutations, set of headers we pass is as follows
 `device_id`: Used here is directly parsed from the sparkplug topic.
 
 So any custom permissions can be set on the hasura cloud with a role `device`. We recommend to use any of the following approaches.
+<!-- toc -->
+* [Allow from all device](#Allow-from-all-device)
+* [Allow only from Registered devices](#Allow-only-from-Registered-devices)
+<!-- tocstop -->
 
-#### Allow from all device
+### Allow from all device
 
 Following permission will allow `hasura-connect` to make mutation from any device_id.
 
 ![Hasura GraphQL Permissions](assets/permission1.png)
 
-#### Allow only from Registered devices
+### Allow only from Registered devices
 
-For doing this, we need to create one more table to store the information of registered devices. This will ensure that Hasura would allow only the mutation from the registered devices.
+For doing this, we need to create one more table to store the information of registered devices. This will ensure that Hasura allows the mutations only from the registered devices.
 * Run & Track the following SQL 
 ```sql
 CREATE TABLE "public"."devices"("id" serial NOT NULL, "device_id" text NOT NULL, "active" boolean NOT NULL DEFAULT true, PRIMARY KEY ("id") );
