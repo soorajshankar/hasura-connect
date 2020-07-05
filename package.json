@@ -38,6 +38,9 @@
   ],
   "homepage": "https://github.com/soorajshankar/hasura-connect",
   "keywords": [
+    "hasura",
+    "mqtt",
+    "sparkplug",
     "oclif"
   ],
   "license": "MIT",

@@ -13,6 +13,7 @@ Currently this project supports [eclipse-sparkplug ](https://www.eclipse.org/tah
 
 
 <!-- toc -->
+* [Prerequisites](#Prerequisites)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -29,6 +30,11 @@ USAGE
   $ hasura-connect COMMAND
 ...
 ```
+
+# Prerequisites
+* [NodeJS and NPM](https://nodejs.org/en/)
+* [Hasura GraphQL Engine](hasura.io/)
+* Any MQTT Broker - Example [mosquitto](https://mosquitto.org/)/ [EMQX](https://www.emqx.io/) 
 <!-- usagestop -->
 # Commands
 <!-- commands -->
