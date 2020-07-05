@@ -1,3 +1,7 @@
 {
-  "extends": "oclif"
+  "extends": [
+    "oclif", 
+    "some-other-config-you-use",
+    "prettier"
+  ]
 }
