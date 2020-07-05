@@ -2,6 +2,11 @@ hasura-connect
 ==============
 
 Hasura connector with MQTT
+hasura-connect cli helps us to connect MQTT broker with hasura graphql engine securely just with 2 commands.
+
+Currently this project supports [eclipse-sparkplug ](https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf) payload specification only.
+
+
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/hasura-connect.svg)](https://npmjs.org/package/hasura-connect)
@@ -29,7 +34,6 @@ USAGE
 # Commands
 <!-- commands -->
 * [`hasura-connect connect`](#hasura-connect-connect)
-* [`hasura-connect hello`](#hasura-connect-hello)
 * [`hasura-connect help [COMMAND]`](#hasura-connect-help-command)
 * [`hasura-connect init`](#hasura-connect-init)
 
@@ -51,23 +55,6 @@ DESCRIPTION
 
 _See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/connect.js)_
 
-## `hasura-connect hello`
-
-Describe the command here
-
-```
-USAGE
-  $ hasura-connect hello
-
-OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
-```
-
-_See code: [src/commands/hello.js](https://github.com/soorajshankar/hasura-connect/blob/v0.1.0/src/commands/hello.js)_
 
 ## `hasura-connect help [COMMAND]`
 
