@@ -1,7 +1,7 @@
 {
   "name": "hasura-connect",
   "description": "Hasura connector with MQTT",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "soorajshankar @soorajshankar",
   "bin": {
     "hasura-connect": "./bin/run"
