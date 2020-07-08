@@ -1,7 +1,7 @@
 {
   "name": "hasura-connect",
   "description": "Hasura connector with MQTT",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "author": "soorajshankar @soorajshankar",
   "bin": {
     "hasura-connect": "./bin/run"
@@ -56,7 +56,7 @@
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",
-    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "prepack": "oclif-dev manifest",
     "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "version": "oclif-dev && git add README.md"
   }
