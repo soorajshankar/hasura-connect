@@ -4,13 +4,12 @@ var fs = require('fs')
 var fetch = require('node-fetch')
 var sparkplug = require('sparkplug-payload').get('spBv1.0')
 
+let debug = false
+
 class ConnectCommand extends Command {
 	async run() {
 		const { flags } = this.parse(ConnectCommand)
-		const name = flags.name || 'world'
-		this.log(
-			`hello ${name} from /Users/sooraj/dev/personal/hasura-connect2/hasura-connect/src/commands/connect.js`
-		)
+		if (flags.debug) debug = true
 		this.loadConfig(this.subScribeMQTT)
 	}
 	async loadConfig(subscribe) {
@@ -25,10 +24,11 @@ class ConnectCommand extends Command {
 	async subScribeMQTT({ HASURA_HOST, MQTT_HOST }) {
 		var client = mqtt.connect(MQTT_HOST)
 		client.on('connect', function () {
-			console.log('CONNECTED')
+			debug && debug && console.log('CONNECTED')
 			client.subscribe('spBv1.0/#', function (err) {
 				if (!err) {
-					console.log('SUBSCRIBED TO spBv1.0/#')
+					console.log('Connected & subscibed to MQTT broker')	
+					debug && console.log('SUBSCRIBED TO spBv1.0/#')
 					//       client.publish("spBv1.0/test", "Hello mqtt"); // test publish
 				}
 			})
@@ -36,9 +36,9 @@ class ConnectCommand extends Command {
 
 		client.on('message', function (topic, message) {
 			// message is Buffer
-			console.log(topic)
+			debug && console.log(topic)
 			const decoded = { message: decode(message), ...parseTopic(topic) }
-			console.log('_DECODED')
+			debug && console.log('_DECODED')
 
 			sendToHasura(decoded, HASURA_HOST)
 		})
@@ -52,20 +52,25 @@ function sendToHasura(
 	},
 	HASURA_HOST
 ) {
-	console.log(
-		JSON.stringify({
-			data: JSON.stringify(message),
-			device_id,
-			timestamp: message.timestamp || timestamp,
-		},null ,2)
-	)
+	debug &&
+		console.log(
+			JSON.stringify(
+				{
+					data: JSON.stringify(message),
+					device_id,
+					timestamp: message.timestamp || timestamp,
+				},
+				null,
+				2
+			)
+		)
 	fetch(`${HASURA_HOST}/v1/graphql`, {
 		headers: {
 			accept: '*/*',
 			'accept-language': 'en-US,en;q=0.9,ml;q=0.8',
 			'content-type': 'application/json',
-			'x-hasura-admin-secret': 'device',
-			'X-Hasura-User-Id': device_id,
+			'x-hasura-admin-secret': 'xghoglwsefhhdtofjwtvkrkykivpfowv',
+			// 'X-Hasura-User-Id': device_id,
 		},
 		body: JSON.stringify({
 			query:
@@ -73,14 +78,15 @@ function sendToHasura(
 			variables: {
 				data: JSON.stringify(message),
 				device_id,
-				timestamp: new Date(message.timestamp).toISOString() || timestamp,
+				timestamp:
+					new Date(message.timestamp).toISOString() || timestamp,
 			},
 			operationName: 'AddDeviceData',
 		}),
 		method: 'POST',
 	})
 		.then((res) => res.json())
-		.then((resp) => console.log(JSON.stringify(resp, null, 2)))
+		.then((resp) => debug && console.log(JSON.stringify(resp, null, 2)))
 }
 
 function decode(encoded) {
@@ -108,7 +114,11 @@ Extra documentation goes here
 `
 
 ConnectCommand.flags = {
-	name: flags.string({ char: 'n', description: 'name to print' }),
+	// name: flags.string({ char: 'n', description: 'name to print' }),
+	debug: flags.boolean({
+		char: 'd',
+		description: 'pass true to enable debugging ',
+	}),
 }
 
 module.exports = ConnectCommand

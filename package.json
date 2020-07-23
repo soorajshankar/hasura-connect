@@ -1,63 +1,64 @@
 {
-  "name": "hasura-connect",
-  "description": "Hasura connector with MQTT",
-  "version": "0.2.3",
-  "author": "soorajshankar @soorajshankar",
-  "bin": {
-    "hasura-connect": "./bin/run"
-  },
-  "bugs": "https://github.com/soorajshankar/hasura-connect/issues",
-  "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/plugin-help": "^3",
-    "fs": "^0.0.1-security",
-    "mqtt": "^4.1.0",
-    "node-fetch": "^2.6.0",
-    "sparkplug-payload": "^1.0.1"
-  },
-  "devDependencies": {
-    "@oclif/dev-cli": "^1",
-    "@oclif/test": "^1",
-    "chai": "^4",
-    "eslint": "^5.13",
-    "eslint-config-oclif": "^3.1",
-    "eslint-config-prettier": "^6.11.0",
-    "globby": "^10",
-    "mocha": "^5",
-    "nyc": "^14"
-  },
-  "engines": {
-    "node": ">=8.0.0"
-  },
-  "files": [
-    "/bin",
-    "/npm-shrinkwrap.json",
-    "/oclif.manifest.json",
-    "/src"
-  ],
-  "homepage": "https://github.com/soorajshankar/hasura-connect",
-  "keywords": [
-    "hasura",
-    "mqtt",
-    "sparkplug",
-    "oclif"
-  ],
-  "license": "MIT",
-  "main": "src/index.js",
-  "oclif": {
-    "commands": "./src/commands",
-    "bin": "hasura-connect",
-    "plugins": [
-      "@oclif/plugin-help"
-    ]
-  },
-  "repository": "soorajshankar/hasura-connect",
-  "scripts": {
-    "postpack": "rm -f oclif.manifest.json",
-    "posttest": "eslint .",
-    "prepack": "oclif-dev manifest",
-    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
-    "version": "oclif-dev && git add README.md"
-  }
+	"name": "hasura-connect",
+	"description": "Hasura connector with MQTT",
+	"version": "0.2.3",
+	"author": "soorajshankar @soorajshankar",
+	"bin": {
+		"hasura-connect": "./bin/run"
+	},
+	"bugs": "https://github.com/soorajshankar/hasura-connect/issues",
+	"dependencies": {
+		"@oclif/command": "^1",
+		"@oclif/config": "^1",
+		"@oclif/plugin-help": "^3",
+		"fs": "^0.0.1-security",
+		"mqtt": "^4.1.0",
+		"node-fetch": "^2.6.0",
+		"sparkplug-payload": "^1.0.1"
+	},
+	"devDependencies": {
+		"@oclif/dev-cli": "^1",
+		"@oclif/test": "^1",
+		"chai": "^4",
+		"eslint": "^5.13",
+		"eslint-config-oclif": "^3.1",
+		"eslint-config-prettier": "^6.11.0",
+		"globby": "^10",
+		"mocha": "^5",
+		"nyc": "^14"
+	},
+	"engines": {
+		"node": ">=8.0.0"
+	},
+	"files": [
+		"/bin",
+		"/npm-shrinkwrap.json",
+		"/oclif.manifest.json",
+		"/src"
+	],
+	"homepage": "https://github.com/soorajshankar/hasura-connect",
+	"keywords": [
+		"hasura",
+		"mqtt",
+		"sparkplug",
+		"oclif"
+	],
+	"license": "MIT",
+	"main": "src/index.js",
+	"oclif": {
+		"commands": "./src/commands",
+		"bin": "hasura-connect",
+		"plugins": [
+			"@oclif/plugin-help"
+		]
+	},
+	"repository": "soorajshankar/hasura-connect",
+	"scripts": {
+		"postpack": "rm -f oclif.manifest.json",
+		"posttest": "eslint .",
+		"prepack": "oclif-dev manifest",
+		"test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+		"version": "oclif-dev && git add README.md",
+		"hasura-connect": " ./bin/run"
+	}
 }

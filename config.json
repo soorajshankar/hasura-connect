@@ -1,0 +1,7 @@
+{
+    "HASURA_HOST": "http://127.0.0.1:8080",
+    "MQTT_HOST": "http://127.0.0.1:1883",
+    "DEVICE_COUNT": 10,
+    "FREQUENCY": 1000
+  }
+  
