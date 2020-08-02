@@ -1,10 +1,13 @@
 const { Command, flags } = require('@oclif/command')
 var mqtt = require('mqtt')
 var fs = require('fs')
+var btoa = require('btoa')
 var fetch = require('node-fetch')
+const { encode } = require('punycode')
 var sparkplug = require('sparkplug-payload').get('spBv1.0')
 
-let debug = false
+let debug = true
+let parse = console.log
 
 class ConnectCommand extends Command {
 	async run() {
@@ -15,20 +18,41 @@ class ConnectCommand extends Command {
 	async loadConfig(subscribe) {
 		fs.readFile('config.json', 'utf8', function (err, data) {
 			if (err) throw err
-			const config = JSON.parse(data)
-			if (!config.HASURA_HOST || !config.MQTT_HOST)
-				throw 'Invalid configuration file detected'
-			subscribe(config)
+			fs.readFile('parse.js', 'utf8', function (e, d) {
+				if (e) throw e
+				console.log(d)
+				const config = JSON.parse(data)
+				if (!config.HASURA_HOST || !config.MQTT_HOST)
+					throw 'Invalid configuration file detected'
+
+				async function doimport() {
+					// var moduleData ="export function hello() { console.log('hello'); };"
+					var b64moduleData = 'data:text/javascript;base64,' + btoa(d)
+					const module = await import(b64moduleData)
+					const resp = module.getMutation({}, 'test/javascript')
+					console.log(JSON.stringify(resp, null, 2))
+
+					subscribe(config)
+				}
+			})
 		})
 	}
-	async subScribeMQTT({ HASURA_HOST, MQTT_HOST }) {
+	async subScribeMQTT({
+		HASURA_HOST,
+		MQTT_HOST,
+		MODE,
+		MQTT_CHANNEL = 'spBv1.0/#',
+	}) {
 		var client = mqtt.connect(MQTT_HOST)
+		client.on('error', function () {
+			if (err) throw err
+		})
 		client.on('connect', function () {
 			debug && debug && console.log('CONNECTED')
-			client.subscribe('spBv1.0/#', function (err) {
+			client.subscribe(MQTT_CHANNEL, function (err) {
 				if (!err) {
-					console.log('Connected & subscibed to MQTT broker')	
-					debug && console.log('SUBSCRIBED TO spBv1.0/#')
+					console.log('Connected & subscibed to MQTT broker')
+					debug && console.log(`SUBSCRIBED TO ${MQTT_CHANNEL}`)
 					//       client.publish("spBv1.0/test", "Hello mqtt"); // test publish
 				}
 			})
@@ -37,7 +61,10 @@ class ConnectCommand extends Command {
 		client.on('message', function (topic, message) {
 			// message is Buffer
 			debug && console.log(topic)
-			const decoded = { message: decode(message), ...parseTopic(topic) }
+			const decoded = {
+				message: decode(message, MODE),
+				...parseTopic(topic),
+			}
 			debug && console.log('_DECODED')
 
 			sendToHasura(decoded, HASURA_HOST)
@@ -89,8 +116,10 @@ function sendToHasura(
 		.then((resp) => debug && console.log(JSON.stringify(resp, null, 2)))
 }
 
-function decode(encoded) {
-	return sparkplug.decodePayload(encoded)
+function decode(encoded, MODE) {
+	if ((mode = 'spBv1.0')) return sparkplug.decodePayload(encoded)
+	if (parse) return parse(encoded)
+	return encoded
 }
 
 function parseTopic(topic) {

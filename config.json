@@ -1,7 +1,1 @@
-{
-    "HASURA_HOST": "http://127.0.0.1:8080",
-    "MQTT_HOST": "http://127.0.0.1:1883",
-    "DEVICE_COUNT": 10,
-    "FREQUENCY": 1000
-  }
-  
+{"HASURA_HOST":"http://localhost:8080","MQTT_HOST":"http://127.0.0.1:1883","MODE":"spBv1.0","MQTT_CHANNEL":"spBv1.0/#","DEVICE_COUNT":10,"FREQUENCY":1000}

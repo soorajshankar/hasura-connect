@@ -11,6 +11,7 @@
 		"@oclif/command": "^1",
 		"@oclif/config": "^1",
 		"@oclif/plugin-help": "^3",
+		"btoa": "^1.2.1",
 		"fs": "^0.0.1-security",
 		"mqtt": "^4.1.0",
 		"node-fetch": "^2.6.0",
@@ -56,9 +57,9 @@
 	"scripts": {
 		"postpack": "rm -f oclif.manifest.json",
 		"posttest": "eslint .",
-		"prepack": "oclif-dev manifest",
+		"prepack": "oclif-dev manifest && oclif-dev readme",
 		"test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
-		"version": "oclif-dev && git add README.md",
+		"version": "oclif-dev readme && git add README.md",
 		"hasura-connect": " ./bin/run"
 	}
 }

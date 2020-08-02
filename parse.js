@@ -1,0 +1,1 @@
+export function getMutation(message, topic) {return ">>>"}
