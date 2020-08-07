@@ -11,36 +11,33 @@ Currently this project supports [eclipse-sparkplug ](https://www.eclipse.org/tah
 [![License](https://img.shields.io/npm/l/hasura-connect.svg)](https://github.com/soorajshankar/hasura-connect/blob/master/package.json)
 
 <!-- toc -->
-
--   [Usage](#usage)
--   [Commands](#commands)
+* [hasura-connect](#hasura-connect)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g hasura-connect
 $ hasura-connect COMMAND
 running command...
 $ hasura-connect (-v|--version|version)
-hasura-connect/0.2.3 darwin-x64 node-v14.2.0
+hasura-connect/0.3.0 darwin-x64 node-v14.2.0
 $ hasura-connect --help [COMMAND]
 USAGE
   $ hasura-connect COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
--   [`hasura-connect connect`](#hasura-connect-connect)
--   [`hasura-connect help [COMMAND]`](#hasura-connect-help-command)
--   [`hasura-connect init`](#hasura-connect-init)
+* [`hasura-connect connect`](#hasura-connect-connect)
+* [`hasura-connect help [COMMAND]`](#hasura-connect-help-command)
+* [`hasura-connect init`](#hasura-connect-init)
 
 ## `hasura-connect connect`
 
@@ -58,7 +55,7 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.2.3/src/commands/connect.js)_
+_See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.0/src/commands/connect.js)_
 
 ## `hasura-connect help [COMMAND]`
 
@@ -79,7 +76,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0
 
 ## `hasura-connect init`
 
-Init command used to intialise hasura connect configuration
+init command used to intialise hasura connect configuration file at the current directory
 
 ```
 USAGE
@@ -95,6 +92,5 @@ DESCRIPTION
   ...
 ```
 
-_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.2.3/src/commands/init.js)_
-
+_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.0/src/commands/init.js)_
 <!-- commandsstop -->
