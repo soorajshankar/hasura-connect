@@ -18,22 +18,24 @@ class ConnectCommand extends Command {
 	async loadConfig(subscribe) {
 		fs.readFile('config.json', 'utf8', function (err, data) {
 			if (err) throw err
-			fs.readFile('parse.js', 'utf8', function (e, d) {
+			fs.readFile('parse.js', 'utf8', async function (e, d) {
 				if (e) throw e
 				console.log(d)
 				const config = JSON.parse(data)
 				if (!config.HASURA_HOST || !config.MQTT_HOST)
 					throw 'Invalid configuration file detected'
 
-				async function doimport() {
+				async function setupParser() {
 					// var moduleData ="export function hello() { console.log('hello'); };"
 					var b64moduleData = 'data:text/javascript;base64,' + btoa(d)
 					const module = await import(b64moduleData)
+					parse = module.getMutation
 					const resp = module.getMutation({}, 'test/javascript')
-					console.log(JSON.stringify(resp, null, 2))
+					// console.log(JSON.stringify(resp, null, 2))
 
 					subscribe(config)
 				}
+				await setupParser()
 			})
 		})
 	}
@@ -44,7 +46,7 @@ class ConnectCommand extends Command {
 		MQTT_CHANNEL = 'spBv1.0/#',
 	}) {
 		var client = mqtt.connect(MQTT_HOST)
-		client.on('error', function () {
+		client.on('error', function (err) {
 			if (err) throw err
 		})
 		client.on('connect', function () {
@@ -117,7 +119,7 @@ function sendToHasura(
 }
 
 function decode(encoded, MODE) {
-	if ((mode = 'spBv1.0')) return sparkplug.decodePayload(encoded)
+	if ((MODE = 'spBv1.0')) return sparkplug.decodePayload(encoded)
 	if (parse) return parse(encoded)
 	return encoded
 }
