@@ -30,7 +30,7 @@ class ConnectCommand extends Command {
 					var b64moduleData = 'data:text/javascript;base64,' + btoa(d)
 					const module = await import(b64moduleData)
 					parse = module.getMutation
-					const resp = module.getMutation({}, 'test/javascript')
+					// const resp = module.getMutation({}, 'test/javascript')
 					// console.log(JSON.stringify(resp, null, 2))
 
 					subscribe(config)

@@ -4,10 +4,14 @@ const { Command, flags } = require('@oclif/command')
 const defaultConfig = {
 	HASURA_HOST: 'http://localhost:8080',
 	MQTT_HOST: 'http://127.0.0.1:1883',
+	MODE: 'NORMAL',
+	MQTT_CHANNEL: 'payloads/#',
+}
+const sparkplugConfig = {
+	HASURA_HOST: 'http://localhost:8080',
+	MQTT_HOST: 'http://127.0.0.1:1883',
 	MODE: 'spBv1.0',
 	MQTT_CHANNEL: 'spBv1.0/#',
-	DEVICE_COUNT: 10,
-	FREQUENCY: 1000,
 }
 var moduleData = `
 export function getMutation(message, topic) {
@@ -30,8 +34,10 @@ class InitCommand extends Command {
 	async run() {
 		const { flags } = this.parse(InitCommand)
 		const name = flags.name || 'world'
+		const config =
+			flags.MODE === 'spBv1.0' ? sparkplugConfig : defaultConfig
 
-		fs.writeFile('config.json', JSON.stringify(defaultConfig), (err) => {
+		fs.writeFile('config.json', JSON.stringify(config), (err) => {
 			if (err) throw err
 			fs.writeFile('parse.js', moduleData, (err) => {
 				if (err) throw err
