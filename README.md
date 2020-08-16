@@ -14,8 +14,119 @@ Currently this project supports [eclipse-sparkplug ](https://www.eclipse.org/tah
 * [hasura-connect](#hasura-connect)
 * [Usage](#usage)
 * [Commands](#commands)
-* [Configuring Hasura GraphQL Engine.](#configuring-hasura-graphql-engine)
-* [Roadmap](#roadmap)
+<!-- tocstop -->
+
+# Usage
+
+<!-- usage -->
+```sh-session
+$ npm install -g hasura-connect
+$ hasura-connect COMMAND
+running command...
+$ hasura-connect (-v|--version|version)
+hasura-connect/0.3.1 darwin-x64 node-v14.2.0
+$ hasura-connect --help [COMMAND]
+USAGE
+  $ hasura-connect COMMAND
+...
+```
+<!-- usagestop -->
+
+# Commands
+
+<!-- commands -->
+* [`hasura-connect connect`](#hasura-connect-connect)
+* [`hasura-connect help [COMMAND]`](#hasura-connect-help-command)
+* [`hasura-connect init`](#hasura-connect-init)
+
+## `hasura-connect connect`
+
+Describe the command here
+
+```
+USAGE
+  $ hasura-connect connect
+
+OPTIONS
+  -d, --debug  pass true to enable debugging
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.1/src/commands/connect.js)_
+
+## `hasura-connect help [COMMAND]`
+
+display help for hasura-connect
+
+```
+USAGE
+  $ hasura-connect help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+
+## `hasura-connect init`
+
+init command used to intialise hasura connect configuration file at the current directory
+
+```
+USAGE
+  $ hasura-connect init
+
+OPTIONS
+  -c, --MQTT_CHANNEL=MQTT_CHANNEL  MQTT channel
+  -h, --HASURA_HOST=HASURA_HOST    hasura host url
+  -m, --MODE=MODE                  mode : sparkplug or normal
+  -m, --MQTT_HOST=MQTT_HOST        mqtt host url
+
+DESCRIPTION
+  ...
+```
+
+_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.1/src/commands/init.js)_
+<!-- commandsstop -->
+
+
+# Configuring Hasura GraphQL Engine.
+
+## Setting up the DB
+
+This project currently support only one Mutation (insert_device_data).
+To setup the table
+
+-   Go to Hasura Console > Data > SQL
+-   Run & Track the following SQL to create a table and setup the mutation
+
+```sql
+CREATE TABLE "public"."device_data"("id" serial NOT NULL, "data" jsonb NOT NULL, "timestamp" timestamptz NOT NULL, "device_id" text NOT NULL, PRIMARY KEY ("id") );
+```
+
+## Authorization
+
+Considering we use mutations, set of headers we pass is as follows
+
+```
+      "X-Hasura-Role": "device",
+      "X-Hasura-User-Id": <device_id>,
+```
+
+`device_id`: Used here is directly parsed from the sparkplug topic.
+
+So any custom permissions can be set on the hasura cloud with a role `device`. We recommend to use any of the following approaches.
+
+<!-- toc -->
+
+-   [Allow from all device](#Allow-from-all-device)
+-   [Allow only from Registered devices](#Allow-only-from-Registered-devices)
 <!-- tocstop -->
 
 ### Allow from all device
