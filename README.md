@@ -3,7 +3,7 @@
 Hasura connector with MQTT
 hasura-connect cli helps us to connect MQTT broker with hasura graphql engine securely just with 2 commands.
 
-Currently this project supports [eclipse-sparkplug ](https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf) payload specification only.
+This project also supports [eclipse-sparkplug ](https://www.eclipse.org/tahu/spec/Sparkplug%20Topic%20Namespace%20and%20State%20ManagementV2.2-with%20appendix%20B%20format%20-%20Eclipse.pdf) payload specification. set `MODE='spBv1.0'` to enable this.
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/hasura-connect.svg)](https://npmjs.org/package/hasura-connect)
@@ -97,7 +97,7 @@ _See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connec
 
 
 # Configuring Hasura GraphQL Engine.
-
+> Note : The following setup is indented to give a basic idea of setting up Hasura Engine for accepting data ingestions, you may design your tables/mutations as per your business logic 
 ## Setting up the DB
 
 This project currently support only one Mutation (insert_device_data).
@@ -174,3 +174,5 @@ Above permission will make sure that the mutation is only allowed if the device 
 -   [ ] support custom MQTT payload spec
 -   [ ] make a Demo app (a digital twin/ realtime chart :?)
 -   [ ] Performance test & optimisation
+-   [ ] Dockerization 
+-   [ ] CI implementaion

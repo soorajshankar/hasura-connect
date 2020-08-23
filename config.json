@@ -1,1 +1,6 @@
-{"HASURA_HOST":"http://localhost:8080","MQTT_HOST":"http://127.0.0.1:1883","MODE":"NORMAL","MQTT_CHANNEL":"payloads/#"}
+{
+	"HASURA_HOST": "http://localhost:8080",
+	"MQTT_HOST": "http://127.0.0.1:1883",
+	"MODE": "JSON",
+	"MQTT_CHANNEL": "payloads/#"
+}
