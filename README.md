@@ -95,6 +95,8 @@ DESCRIPTION
 _See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.1/src/commands/init.js)_
 <!-- commandsstop -->
 
+<!-- configstart -->
+
 
 # Configuring Hasura GraphQL Engine.
 > Note : The following setup is indented to give a basic idea of setting up Hasura Engine for accepting data ingestions, you may design your tables/mutations as per your business logic 
@@ -123,11 +125,8 @@ Considering we use mutations, set of headers we pass is as follows
 
 So any custom permissions can be set on the hasura cloud with a role `device`. We recommend to use any of the following approaches.
 
-<!-- toc -->
-
 -   [Allow from all device](#Allow-from-all-device)
 -   [Allow only from Registered devices](#Allow-only-from-Registered-devices)
-<!-- tocstop -->
 
 ### Allow from all device
 
@@ -176,3 +175,4 @@ Above permission will make sure that the mutation is only allowed if the device 
 -   [ ] Performance test & optimisation
 -   [ ] Dockerization 
 -   [ ] CI implementaion
+<!-- configstart -->
