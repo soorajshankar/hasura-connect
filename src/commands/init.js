@@ -3,7 +3,7 @@ const { Command, flags } = require('@oclif/command')
 
 const getDefaultConfig = ({
 	HASURA_HOST = 'http://localhost:8080',
-	MQTT_HOST = 'http://127.0.0.1:1883',
+	MQTT_HOST = 'http://broker.mqttdashboard.com',
 	MODE = 'NORMAL',
 	MQTT_CHANNEL = 'payloads/#',
 }) => ({
@@ -31,7 +31,9 @@ var moduleData = `export function getMutation(message, topic) {
 				? new Date(message.timestamp).toISOString()
 				: timestamp,
 		},
-		operationName: 'AddDeviceData',
+		headers: {
+			'x-hasura-admin-secret':"testpassword"
+		},
 	}
 }`
 // var b64moduleData =moduleData

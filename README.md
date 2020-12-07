@@ -26,7 +26,7 @@ $ npm install -g hasura-connect
 $ hasura-connect COMMAND
 running command...
 $ hasura-connect (-v|--version|version)
-hasura-connect/0.3.2 darwin-x64 node-v14.2.0
+hasura-connect/0.3.3 darwin-x64 node-v14.2.0
 $ hasura-connect --help [COMMAND]
 USAGE
   $ hasura-connect COMMAND
@@ -65,7 +65,7 @@ DESCRIPTION
   use process managers like pm2 to manage multiple process in the same machine.
 ```
 
-_See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.2/src/commands/connect.js)_
+_See code: [src/commands/connect.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.3/src/commands/connect.js)_
 
 ## `hasura-connect help [COMMAND]`
 
@@ -132,7 +132,7 @@ DESCRIPTION
   }
 ```
 
-_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.2/src/commands/init.js)_
+_See code: [src/commands/init.js](https://github.com/soorajshankar/hasura-connect/blob/v0.3.3/src/commands/init.js)_
 <!-- commandsstop -->
 
 <!-- configstart -->
