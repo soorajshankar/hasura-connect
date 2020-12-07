@@ -34,6 +34,9 @@ USAGE
 ```
 <!-- usagestop -->
 
+# Demo
+[![](http://img.youtube.com/vi/LDs_lBajsII/0.jpg)](http://www.youtube.com/watch?v=LDs_lBajsII "")
+
 # Commands
 
 <!-- commands -->
